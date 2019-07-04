@@ -1,0 +1,5 @@
+# Mac OS Finder file
+.DS_Store
+
+# Python 3 virtualenv folder
+env
