@@ -1,5 +1,8 @@
 # Mac OS Finder file
 .DS_Store
 
+# VSCode config
+.vscode
+
 # Python 3 virtualenv folder
 env
