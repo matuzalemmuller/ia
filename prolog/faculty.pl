@@ -10,8 +10,11 @@
 % possui 19 anos, Vinicius possui 41 e Maria possui 32. Maria é a
 % coordenadora dos técnicos administrativos. 
 
-% O diretor da faculdade recebe um bônus de 3000 reais. Diretores não podem
-% ser coordenadores simultaneamente.
+% Simpósios são organizados anualmente para cada área.
+% O simpósio de direito ocorre em março, o de economia em setembro e o de 
+% administração em novembro.
+% Todos os professores de uma área devem estar envolvidos na organização do
+% simpósio de sua área.
 
 % O salário para técnicos é igual, no valor de 2300 reais.
 % O coordenador dos técnicos recebe um adicional de 700 reais.
@@ -19,6 +22,9 @@
 % O salário de professores doutores é de 8000 reais, o de mestres é de 6000 e
 % o de graduados é de 3000. O coordenador dos professores recebe um adicional de 
 % 1000 reais.
+
+% O diretor da faculdade recebe um bônus de 3000 reais. Diretores não podem
+% ser coordenadores simultaneamente.
 
 % Professores tiram férias em janeiro, fevereiro e junho. Coordenadores tiram
 % férias em janeiro e fevereiro. Diretores tiram férias em janeiro.
@@ -79,18 +85,33 @@ salario(N, 5300) :- funcao(tecnico_administrativo, _, _, N, _, _),
     diretor(N, _).
 
 %% Condicoes de aposentadoria
-aposentado(N) :- funcao(_, _, homem, N, I, _), I > 65.
-aposentado(N) :- funcao(_, _, mulher, N, I, _), I > 60.
+aposentado(N) :- funcao(_, _, G, N, I, _), G = homem, I >= 65.
+aposentado(N) :- funcao(_, _, G, N, I, _), G = mulher, I >= 60.
+
+ativo(N) :- funcao(_, _, G, N, I, _), G = homem, I < 65.
+ativo(N) :- funcao(_, _, G, N, I, _), G = mulher, I < 60.
 
 %% Ferias
-ferias(N, [janeiro]) :- diretor(N, _).
-ferias(N, [janeiro, fevereiro]) :- coordenador(N, _).
+ferias(N, [janeiro]) :- diretor(N, _), ativo(N).
+ferias(N, [janeiro, fevereiro]) :- coordenador(N, _), ativo(N).
 ferias(N, [janeiro, fevereiro, junho]) :- funcao(professor, _, _, N, _, _),
-    diretor(D, _), coordenador(C, professor), D \= N, C \= N.
+    diretor(D, _), coordenador(C, professor), ativo(N), D \= N, C \= N.
 ferias(N, [janeiro, junho]) :- funcao(tecnico_administrativo, _, _, N, _, _),
-    diretor(D, _), coordenador(C, tecnico_administrativo), D \= N, C \= N.
+    diretor(D, _), coordenador(C, tecnico_administrativo),
+    ativo(N), D \= N, C \= N.
 
 %% Todos
 todos_professores(P) :- findall(N, funcao(professor, _, _, N, _, _), P).
 todos_tecnicos_administrativos(T) :-
     findall(N, funcao(tecnico_administrativo, _, _, N, _, _), T).
+
+%% Simposio
+simposio(direito, M, P) :-
+    findall(N, (funcao(professor, direito, _, N, _, _), ativo(N)), P),
+    M = marco.
+simposio(economia, M, P) :-
+    findall(N, (funcao(professor, economia, _, N, _, _), ativo(N)), P),
+    M = setembro.
+simposio(administracao, M, P) :-
+    findall(N, (funcao(professor, administracao, _, N, _, _), ativo(N)), P),
+    M = novembro.
