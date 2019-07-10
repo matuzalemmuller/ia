@@ -13,7 +13,7 @@ from skfuzzy import control as ctrl
 
 # Antecedents are Inputs and Consequents are Outputs
 temperature = ctrl.Antecedent(np.arange(-10, 41, 1), 'temperature')
-target = ctrl.Antecedent(np.arange(0, 17, 1), 'target')
+target = ctrl.Antecedent(np.arange(0, 11, 1), 'target')
 command = ctrl.Consequent(np.arange(0, 81, 1), 'command')
 
 # Defines areas of each fuzzy input and output
@@ -23,9 +23,9 @@ temperature['warm'] = fuzz.trapmf(temperature.universe, [10, 15, 20, 25])
 temperature['hot'] = fuzz.trapmf(temperature.universe, [20, 25, 30, 35])
 temperature['too-hot'] = fuzz.trapmf(temperature.universe, [30, 35, 40, 40])
 
-target['cold'] = fuzz.trimf(target.universe, [0, 3, 6])
-target['warm'] = fuzz.trimf(target.universe, [5, 8, 11])
-target['hot'] = fuzz.trimf(target.universe, [10, 13, 16])
+target['cold'] = fuzz.trimf(target.universe, [0, 0, 4])
+target['warm'] = fuzz.trimf(target.universe, [3, 5, 7])
+target['hot'] = fuzz.trimf(target.universe, [6, 10, 10])
 
 command['cool'] = fuzz.trimf(command.universe, [0, 0, 30])
 command['no-change'] = fuzz.trimf(command.universe, [25, 40, 55])
