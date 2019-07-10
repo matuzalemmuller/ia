@@ -49,24 +49,34 @@ coordenador(N, F) :- funcao(F, _, _, N, _, _), N = maria.
 
 %% Salarios
 % Professor com doutorado
-salario(N, 8000) :- funcao(professor, _, _, N, _, doutorado), coordenador(C, professor), diretor(D, _), C \= N, D \= N.
-salario(N, 9000) :- funcao(professor, _, _, N, _, doutorado), coordenador(N, professor).
-salario(N, 11000) :- funcao(professor, _, _, N, _, doutorado), diretor(N, _).
+salario(N, 8000) :- funcao(professor, _, _, N, _, doutorado),
+    coordenador(C, professor), diretor(D, _), C \= N, D \= N.
+salario(N, 9000) :- funcao(professor, _, _, N, _, doutorado),
+    coordenador(N, professor).
+salario(N, 11000) :- funcao(professor, _, _, N, _, doutorado),
+    diretor(N, _).
 
 % Professor com mestrado
-salario(N, 6000) :- funcao(professor, _, _, N, _, mestrado), coordenador(C, professor), diretor(D, _), C \= N, D \= N.
-salario(N, 7000) :- funcao(professor, _, _, N, _, mestrado), coordenador(N, professor).
+salario(N, 6000) :- funcao(professor, _, _, N, _, mestrado),
+    coordenador(C, professor), diretor(D, _), C \= N, D \= N.
+salario(N, 7000) :- funcao(professor, _, _, N, _, mestrado),
+    coordenador(N, professor).
 salario(N, 9000) :- funcao(professor, _, _, N, _, mestrado), diretor(N, _).
 
 % Professor com graduacao
-salario(N, 3000) :- funcao(professor, _, _, N, _, graduacao), coordenador(C, professor), diretor(D, _), C \= N, D \= N.
-salario(N, 4000) :- funcao(professor, _, _, N, _, graduacao), coordenador(N, professor).
+salario(N, 3000) :- funcao(professor, _, _, N, _, graduacao),
+    coordenador(C, professor), diretor(D, _), C \= N, D \= N.
+salario(N, 4000) :- funcao(professor, _, _, N, _, graduacao),
+    coordenador(N, professor).
 salario(N, 6000) :- funcao(professor, _, _, N, _, graduacao), diretor(N, _).
 
 % Tecnicos Administrativos
-salario(N, 2300) :- funcao(tecnico_administrativo, _, _, N, _, _), coordenador(C, tecnico_administrativo), diretor(D, _), C \= N, D \= N.
-salario(N, 3000) :- funcao(tecnico_administrativo, _, _, N, _, _), coordenador(N, tecnico_administrativo).
-salario(N, 5300) :- funcao(tecnico_administrativo, _, _, N, _, _), diretor(N, _).
+salario(N, 2300) :- funcao(tecnico_administrativo, _, _, N, _, _),
+    coordenador(C, tecnico_administrativo), diretor(D, _), C \= N, D \= N.
+salario(N, 3000) :- funcao(tecnico_administrativo, _, _, N, _, _),
+    coordenador(N, tecnico_administrativo).
+salario(N, 5300) :- funcao(tecnico_administrativo, _, _, N, _, _),
+    diretor(N, _).
 
 %% Condicoes de aposentadoria
 aposentado(N) :- funcao(_, _, homem, N, I, _), I > 65.
@@ -75,9 +85,12 @@ aposentado(N) :- funcao(_, _, mulher, N, I, _), I > 60.
 %% Ferias
 ferias(N, [janeiro]) :- diretor(N, _).
 ferias(N, [janeiro, fevereiro]) :- coordenador(N, _).
-ferias(N, [janeiro, fevereiro, junho]) :- funcao(professor, _, _, N, _, _), diretor(D, _), coordenador(C, professor), D \= N, C \= N.
-ferias(N, [janeiro, junho]) :- funcao(tecnico_administrativo, _, _, N, _, _), diretor(D, _), coordenador(C, tecnico_administrativo), D \= N, C \= N.
+ferias(N, [janeiro, fevereiro, junho]) :- funcao(professor, _, _, N, _, _),
+    diretor(D, _), coordenador(C, professor), D \= N, C \= N.
+ferias(N, [janeiro, junho]) :- funcao(tecnico_administrativo, _, _, N, _, _),
+    diretor(D, _), coordenador(C, tecnico_administrativo), D \= N, C \= N.
 
 %% Todos
 todos_professores(P) :- findall(N, funcao(professor, _, _, N, _, _), P).
-todos_tecnicos_administrativos(T) :- findall(N, funcao(tecnico_administrativo, _, _, N, _, _), T).
+todos_tecnicos_administrativos(T) :-
+    findall(N, funcao(tecnico_administrativo, _, _, N, _, _), T).
