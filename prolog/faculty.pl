@@ -17,8 +17,8 @@
 % professores que possuem apenas ensino superior recebem 3000 reais. O 
 % coordenador dos professores recebe um adicional de 1000 reais.
 % O salário para técnicos administrativos é igual, no valor de 2300 reais,
-% independente do nível de escolaridade. O coordenador dos técnicos recebe um
-% adicional de 700 reais.
+% independente do nível de escolaridade. O coordenador dos técnicos
+% administrativos recebe um adicional de 700 reais.
 % O diretor da faculdade recebe um bônus de 3000 reais. 
 % Homens se aposentam a partir dos 65 anos e mulheres a partir dos 60 anos de
 % idade.
