@@ -1,1 +1,1 @@
-Projects from Inteligência Artificial (Artificial Intelligence) couse from Master's Program @ UFSC.
+Projects from Inteligência Artificial (Artificial Intelligence) course from Master's Program @ UFSC.
